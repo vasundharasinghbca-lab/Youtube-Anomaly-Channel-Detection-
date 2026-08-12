@@ -1,9 +1,8 @@
-Package	     
-Flask	        
-numpy	        
-scikit-learn	
-tensorflow	   
-joblib	        
-python-dotenv	
-google-api-python-client	
-gunicorn	    
+Flask
+numpy
+scikit-learn
+tensorflow
+joblib
+python-dotenv
+google-api-python-client
+gunicorn
