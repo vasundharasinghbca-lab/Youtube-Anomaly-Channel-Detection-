@@ -1,0 +1,10 @@
+Package	        Purpose
+Flask	        Your web application
+numpy	        Feature calculations and arrays
+scikit-learn	StandardScaler and ML preprocessing
+tensorflow	    Your Autoencoder model
+joblib	        Loading scaler, threshold, and feature files
+python-dotenv	Reading your .env file
+google-api
+-python-client	YouTube Data API
+gunicorn	    Running Flask on Render

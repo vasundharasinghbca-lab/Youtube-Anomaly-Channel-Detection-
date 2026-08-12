@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>YT Sentinel | YouTube Bot Detector</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="dark-page">
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="top-nav">
+
+    <div class="brand">
+        <div class="brand-icon">◉</div>
+
+        <div>
+            <span class="brand-name">YT SENTINEL</span>
+            <span class="brand-subtitle">AI CHANNEL INTELLIGENCE</span>
+        </div>
+    </div>
+
+    <div class="nav-right">
+
+        <span class="engine-status">
+            <span class="status-dot"></span>
+            AI ENGINE ONLINE
+        </span>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<main class="hero">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            MACHINE LEARNING • ANOMALY DETECTION
+        </div>
+
+        <h1>
+            See the signals<br>
+            <span>behind the channel.</span>
+        </h1>
+
+        <p class="hero-description">
+            Analyze YouTube channel behavior using an
+            AI-powered anomaly detection system.
+        </p>
+
+
+        <!-- ================= ANALYSIS BOX ================= -->
+
+        <form action="/analyze"
+              method="POST"
+              class="scanner-form"
+              id="scannerForm">
+
+            <div class="input-wrapper">
+
+                <span class="input-icon">↗</span>
+
+                <input
+                    type="text"
+                    name="channel_url"
+                    id="channelUrl"
+                    placeholder="Paste YouTube channel URL"
+                    required
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <button type="submit"
+                    class="scan-button"
+                    id="scanButton">
+
+                <span id="buttonText">
+                    RUN ANALYSIS
+                </span>
+
+                <span class="button-arrow">
+                    →
+                </span>
+
+            </button>
+
+        </form>
+
+
+        <!-- ================= SCAN INFO ================= -->
+
+        <div class="scan-info">
+
+            <span>⚡ Real-time channel data</span>
+
+            <span>•</span>
+
+            <span>🧠 Autoencoder detection</span>
+
+            <span>•</span>
+
+            <span>7 behavioral signals</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= AI VISUAL ================= -->
+
+    <div class="hero-visual">
+
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+
+        <div class="ai-core">
+
+            <div class="core-ring"></div>
+
+            <div class="core-content">
+
+                <div class="core-icon">
+                    ◉
+                </div>
+
+                <div class="core-title">
+                    AI
+                </div>
+
+                <div class="core-label">
+                    ANALYSIS ENGINE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="signal-card signal-one">
+
+            <span class="signal-dot"></span>
+
+            <div>
+                <small>CHANNEL AGE</small>
+                <strong>9.3 YEARS</strong>
+            </div>
+
+        </div>
+
+
+        <div class="signal-card signal-two">
+
+            <span class="signal-dot cyan"></span>
+
+            <div>
+                <small>BEHAVIORAL SIGNALS</small>
+                <strong>7 FEATURES</strong>
+            </div>
+
+        </div>
+
+
+        <div class="signal-card signal-three">
+
+            <span class="signal-dot purple"></span>
+
+            <div>
+                <small>ANOMALY ENGINE</small>
+                <strong>ACTIVE</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="how-section">
+
+    <div class="section-label">
+        HOW IT WORKS
+    </div>
+
+    <h2>
+        From channel URL to<br>
+        <span>AI-powered insight.</span>
+    </h2>
+
+
+    <div class="process-grid">
+
+        <div class="process-card">
+
+            <div class="process-number">01</div>
+
+            <div class="process-icon">↗</div>
+
+            <h3>Fetch</h3>
+
+            <p>
+                Channel statistics are retrieved
+                using the YouTube Data API.
+            </p>
+
+        </div>
+
+
+        <div class="process-line"></div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">02</div>
+
+            <div class="process-icon">⌁</div>
+
+            <h3>Extract</h3>
+
+            <p>
+                Raw statistics are transformed
+                into behavioral features.
+            </p>
+
+        </div>
+
+
+        <div class="process-line"></div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">03</div>
+
+            <div class="process-icon">◈</div>
+
+            <h3>Analyze</h3>
+
+            <p>
+                The Autoencoder evaluates the
+                channel for unusual patterns.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer class="site-footer">
+
+    <span>YT SENTINEL</span>
+
+    <span>AI-powered behavioral analysis</span>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+const form = document.getElementById("scannerForm");
+const button = document.getElementById("scanButton");
+const buttonText = document.getElementById("buttonText");
+
+form.addEventListener("submit", function () {
+
+    button.disabled = true;
+
+    buttonText.innerText = "ANALYZING...";
+
+    button.classList.add("scanning");
+
+});
+
+</script>
+
+</body>
+</html>

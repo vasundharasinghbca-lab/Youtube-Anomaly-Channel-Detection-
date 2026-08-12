@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Channel Investigation | YT Sentinel</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body class="dark-page">
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="top-nav">
+
+    <div class="brand">
+
+        <a href="/" class="brand-link">
+
+            <div class="brand-icon">◉</div>
+
+            <div>
+
+                <span class="brand-name">
+                    YT SENTINEL
+                </span>
+
+                <span class="brand-subtitle">
+                    AI CHANNEL INTELLIGENCE
+                </span>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <div class="nav-right">
+
+        <span class="engine-status">
+
+            <span class="status-dot"></span>
+
+            AI ENGINE ONLINE
+
+        </span>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="investigation-container">
+
+
+<!-- ================= PAGE HEADER ================= -->
+
+<section class="investigation-header">
+
+    <div>
+
+        <div class="section-label">
+            CHANNEL INVESTIGATION
+        </div>
+
+        <h1>
+            {{ channel.title }}
+        </h1>
+
+        <div class="channel-meta">
+
+            <span>
+                🌍 {{ channel.country or "Unknown" }}
+            </span>
+
+            <span>•</span>
+
+            <span>
+                Created {{ channel.publishedAt[:10] }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <a href="{{ channel.channelUrl }}"
+       target="_blank"
+       class="secondary-button">
+
+        VISIT CHANNEL ↗
+
+    </a>
+
+    
+
+</section>
+
+
+<!-- ================= AI RESULT ================= -->
+
+<section class="result-hero
+{% if result.prediction == 'Likely Genuine' %}
+result-genuine
+{% else %}
+result-suspicious
+{% endif %}">
+
+
+    <div class="result-status">
+
+        {% if result.prediction == "Likely Genuine" %}
+
+            <span class="result-symbol">✓</span>
+
+            <div>
+
+                <small>AI CLASSIFICATION</small>
+
+                <h2>LIKELY GENUINE</h2>
+
+            </div>
+
+        {% else %}
+
+            <span class="result-symbol">!</span>
+
+            <div>
+
+                <small>AI CLASSIFICATION</small>
+
+                <h2>SUSPICIOUS</h2>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="risk-display">
+
+        <small>RISK SCORE</small>
+
+        <strong>
+            {{ result.risk_score }}%
+        </strong>
+
+        {% if result.risk_score < 30 %}
+
+            <span class="risk-label">
+                LOW ANOMALY
+            </span>
+
+        {% elif result.risk_score < 70 %}
+
+            <span class="risk-label">
+                MODERATE ANOMALY
+            </span>
+
+        {% else %}
+
+            <span class="risk-label">
+                HIGH ANOMALY
+            </span>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- ================= CHANNEL SIGNALS ================= -->
+
+<section class="dashboard-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                CHANNEL SIGNALS
+            </span>
+
+            <h2>
+                Behavioral overview
+            </h2>
+
+        </div>
+
+        <span class="feature-count">
+            07 FEATURES
+        </span>
+
+    </div>
+
+
+    <div class="metrics-grid">
+
+
+        <div class="metric-card">
+
+            <span class="metric-label">
+                SUBSCRIBERS
+            </span>
+
+            <strong>
+                {{ "{:,}".format(channel.subscriberCount) }}
+            </strong>
+
+            <span class="metric-status">
+                ● OBSERVED
+            </span>
+
+        </div>
+
+
+        <div class="metric-card">
+
+            <span class="metric-label">
+                TOTAL VIEWS
+            </span>
+
+            <strong>
+                {{ "{:,}".format(channel.viewCount) }}
+            </strong>
+
+            <span class="metric-status">
+                ● OBSERVED
+            </span>
+
+        </div>
+
+
+        <div class="metric-card">
+
+            <span class="metric-label">
+                TOTAL VIDEOS
+            </span>
+
+            <strong>
+                {{ "{:,}".format(channel.videoCount) }}
+            </strong>
+
+            <span class="metric-status">
+                ● OBSERVED
+            </span>
+
+        </div>
+
+
+        <div class="metric-card">
+
+            <span class="metric-label">
+                CHANNEL AGE
+            </span>
+
+            <strong>
+                {{ display_metrics.channel_age }}
+                <small>YEARS</small>
+            </strong>
+
+            <span class="metric-status">
+                ● CALCULATED
+            </span>
+
+        </div>
+
+
+        <div class="metric-card">
+
+            <span class="metric-label">
+                VIEWS / SUBSCRIBER
+            </span>
+
+            <strong>
+                {{ display_metrics.views_per_subscriber }}
+            </strong>
+
+            <span class="metric-status">
+                ● CALCULATED
+            </span>
+
+        </div>
+
+
+        <div class="metric-card">
+
+            <span class="metric-label">
+                VIEWS / VIDEO
+            </span>
+
+            <strong>
+                {{ "{:,.2f}".format(display_metrics.views_per_video) }}
+            </strong>
+
+            <span class="metric-status">
+                ● CALCULATED
+            </span>
+
+        </div>
+
+
+        <div class="metric-card">
+
+            <span class="metric-label">
+                UPLOAD FREQUENCY
+            </span>
+
+            <strong>
+                {{ display_metrics.video_per_year }}
+            </strong>
+
+            <span class="metric-status">
+                ● CALCULATED
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI REASONING ================= -->
+
+<section class="analysis-layout">
+
+
+    <!-- AI SIGNALS -->
+
+    <div class="analysis-card">
+
+        <div class="section-label">
+            AI REASONING
+        </div>
+
+        <h2>
+            Signals considered
+        </h2>
+
+        <p class="analysis-description">
+
+            The detection engine evaluates seven behavioral
+            characteristics before producing the final classification.
+
+        </p>
+
+
+        <div class="signal-list">
+
+            <div>
+                <span>✓</span>
+                Channel Age
+            </div>
+
+            <div>
+                <span>✓</span>
+                Subscriber Count
+            </div>
+
+            <div>
+                <span>✓</span>
+                Total Views
+            </div>
+
+            <div>
+                <span>✓</span>
+                Total Videos
+            </div>
+
+            <div>
+                <span>✓</span>
+                Views per Subscriber
+            </div>
+
+            <div>
+                <span>✓</span>
+                Views per Video
+            </div>
+
+            <div>
+                <span>✓</span>
+                Upload Frequency
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODEL DETAILS -->
+
+    <div class="analysis-card model-card">
+
+        <div class="section-label">
+            MODEL OUTPUT
+        </div>
+
+        <h2>
+            Anomaly analysis
+        </h2>
+
+
+        <div class="model-value">
+
+            <span>
+                RECONSTRUCTION ERROR
+            </span>
+
+            <strong>
+                {{ "%.5f"|format(result.reconstruction_error) }}
+            </strong>
+
+        </div>
+
+
+        <div class="model-divider"></div>
+
+
+        <div class="model-description">
+
+            {% if result.prediction == "Likely Genuine" %}
+
+            <span class="mini-check">✓</span>
+
+            <p>
+                Reconstruction error remained below the
+                learned anomaly threshold. The observed
+                behavioral pattern closely resembles the
+                patterns learned by the model.
+            </p>
+
+            {% else %}
+
+            <span class="mini-warning">!</span>
+
+            <p>
+                Reconstruction error exceeded the learned
+                anomaly threshold. The channel displays
+                behavioral characteristics that differ from
+                the model's learned patterns.
+            </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI SUMMARY ================= -->
+
+<section class="summary-section">
+
+    <div class="summary-icon">
+        ◈
+    </div>
+
+
+    <div>
+
+        <div class="section-label">
+            AI SUMMARY
+        </div>
+
+        <h2>
+            What the model found
+        </h2>
+
+
+        {% if result.prediction == "Likely Genuine" %}
+
+        <p>
+
+            <strong>{{ channel.title }}</strong>
+            was analyzed using behavioral features extracted
+            from publicly available YouTube channel statistics.
+
+            The channel has been active for
+            <strong>{{ display_metrics.channel_age }} years</strong>
+            with
+            <strong>{{ "{:,}".format(channel.subscriberCount) }}</strong>
+            subscribers,
+            <strong>{{ "{:,}".format(channel.viewCount) }}</strong>
+            total views and
+            <strong>{{ "{:,}".format(channel.videoCount) }}</strong>
+            uploaded videos.
+
+            The observed reconstruction error remained below
+            the anomaly threshold, resulting in a
+            <strong>Likely Genuine</strong> classification.
+
+        </p>
+
+        {% else %}
+
+        <p>
+
+            <strong>{{ channel.title }}</strong>
+            was analyzed using behavioral features extracted
+            from publicly available YouTube channel statistics.
+
+            The model identified behavioral characteristics
+            that differ from the patterns it learned during
+            training. The reconstruction error exceeded the
+            anomaly threshold, resulting in a
+            <strong>Suspicious</strong> classification.
+
+            This result indicates an anomaly in the observed
+            behavioral pattern and should not be interpreted
+            as definitive proof of bot activity.
+
+        </p>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- ================= FINAL DECISION ================= -->
+
+<section class="decision-section">
+
+    <div>
+
+        <span class="section-label">
+            FINAL DECISION
+        </span>
+
+        {% if result.prediction == "Likely Genuine" %}
+
+        <h2>
+            ✓ No significant behavioral anomaly detected.
+        </h2>
+
+        {% else %}
+
+        <h2>
+            ! Behavioral anomaly detected.
+        </h2>
+
+        {% endif %}
+
+    </div>
+
+
+    <a href="/"
+       class="primary-button">
+
+        + NEW CHANNEL SCAN
+
+    </a>
+
+</section>
+
+
+</main>
+
+
+<footer class="site-footer">
+
+    <span>
+        YT SENTINEL
+    </span>
+
+    <span>
+        AI-powered behavioral analysis
+    </span>
+
+</footer>
+
+
+</body>
+</html>
