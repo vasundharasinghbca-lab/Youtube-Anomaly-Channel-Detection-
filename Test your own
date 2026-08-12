@@ -1,0 +1,99 @@
+# YouTube Bot Detector 🤖
+
+## About the Project
+
+YouTube Bot Detector is an AI-based web application developed to identify potentially suspicious YouTube channels by analyzing their channel metrics and behavioural patterns.
+
+The project uses the YouTube Data API to collect information about a channel, such as its subscribers, total views, number of videos, and channel creation date. These values are then used to calculate additional behavioural features such as views per subscriber, views per video, upload frequency, and channel age.
+
+An Autoencoder machine learning model is used to learn normal patterns from the channel data. The model calculates a reconstruction error for the given channel. This error is then compared with a predefined threshold to determine whether the channel's behaviour appears normal or suspicious.
+
+The application provides the final result through a simple and interactive Flask web interface.
+
+---
+
+## Features Used
+
+The following features are used for analyzing a YouTube channel:
+
+- Channel Age
+- Subscriber Count
+- Total View Count
+- Total Video Count
+- Views per Subscriber
+- Views per Video
+- Videos Uploaded per Year
+
+These features are processed using feature engineering and log transformation before being passed to the trained Autoencoder model.
+
+The system then calculates:
+
+- Reconstruction Error
+- Risk Score
+- Final Prediction
+
+The final prediction can be:
+
+**Likely Genuine** – The channel's behavioural patterns are close to the patterns learned by the model.
+
+**Suspicious** – The channel shows behavioural patterns that differ significantly from the learned patterns.
+
+---
+
+## How the Project Works
+
+The complete process works as follows:
+
+YouTube Channel URL  
+↓  
+YouTube Data API  
+↓  
+Channel Data Collection  
+↓  
+Feature Engineering  
+↓  
+Log Transformation  
+↓  
+Feature Scaling  
+↓  
+Autoencoder Model  
+↓  
+Reconstruction Error  
+↓  
+Threshold Comparison  
+↓  
+Final Result
+
+The result page displays the channel information along with the metrics used by the AI model and the final prediction.
+
+---
+
+## How to Run the Project
+
+If you want to test the project yourself, you can run it locally using Visual Studio Code.
+
+### Step 1: Open the Project
+
+Open the `youtube-bot-detector` project folder in Visual Studio Code.
+
+### Step 2: Open the Terminal
+
+In VS Code, open:
+
+**Terminal → New Terminal**
+
+Make sure you are inside the project folder.
+
+For example:
+
+```text
+C:\Users\YourName\Desktop\youtube-bot-detector
+
+### step 3: Run python app.py in the terminal 
+
+click on the link on which the the web browser is running
+
+paste any channel link then click analyze
+
+for example: 
+  https://www.youtube.com/@souravjvlogs link should look like this 
